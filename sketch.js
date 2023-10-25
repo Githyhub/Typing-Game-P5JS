@@ -1,7 +1,7 @@
 
 let arrayWord = ['hello','mother','donde','sl'];
 let storm = ['first','second','third','fourth','fith'];
-let numStorm = 1;
+let numStorm = 4;
 
 let tempWord = ' ';
 
@@ -104,6 +104,7 @@ function deathScreen(){
 
 
 function drawMet(){
+holdText = 'hello';
  
   this.x= random(0,displayWidth);
   this.y=random(0,4);
@@ -113,6 +114,7 @@ function drawMet(){
   if(stopVarable==false){
     noStroke();
     circle(this.x,this.y,10,20);
+    text(holdText,this.x, this.y);
   }
 }
 
