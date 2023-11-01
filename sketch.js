@@ -1,12 +1,12 @@
 
 let arrayWord = ['hello','mother','donde','sl'];
 let storm = ['first','second','third','fourth','fith'];
-let numStorm = 4;
+let numStorm = 1;
 
 let tempWord = ' ';
-
+let point = 0;
 let health = 3;
-let stopVarable= false;
+
 
 let lemmings
 
@@ -73,6 +73,7 @@ function draw() {
   text(displayhealth(), tempHeight, tempWidth);
 
 for(let i = 0; i<numStorm;i++){
+  storm[i].check();
    storm[i].show();
   
   }
@@ -86,29 +87,38 @@ for(let i = 0; i<numStorm;i++){
   for(let i = 0; i<numStorm;i++){
     storm[i].move();
    
-   }
-
-
-  
-
- 
-
-  
+  }
 }
 
 function deathScreen(){
-  stopVarable = true;
+  for(let i = 0; i<numStorm;i++){
+    storm[i].stopVarable=true;
+   }
   square(displayHeight*0.5, displayWidth*0.5, 40);
 
 }
 
 
 function drawMet(){
-holdText = 'hello';
+let holdText = random(arrayWord);
+let stopVarable=false;
  
   this.x= random(0,displayWidth);
   this.y=random(0,4);
 
+  this.check = function(){
+  if(tempWord==(holdText)){
+    stopVarable= true;
+    point+=1;
+    holdText = random(arrayWord);
+    this.x= random(0,displayWidth);
+    this.y=random(-7,0);
+      stopVarable=false;
+      
+  }
+
+ 
+}
   
   this.show = function(){
   if(stopVarable==false){
