@@ -6,18 +6,14 @@ let numStorm = 1;
 let tempWord = ' ';
 let point = 0;
 let health = 3;
-
-
-let lemmings
+let wave = 1;
 
 
 
 function setup() {
   let textWordBlankHidden = random(arrayWord);
   
-  for(let i = 0; i<textWordBlankHidden.length; i++){
-    tempWord+= ' _ ';
-   }
+
   createCanvas(displayWidth, displayHeight);
   let inputHuman = createInput('');
   inputHuman.input(refreshText);
@@ -31,23 +27,10 @@ function setup() {
 }
 
 function refreshText(){
- 
+
  tempWord= this.value();
- if(tempWord!=textWordBlankHidden.length){
-  if(textWordBlankHidden.length-tempWord.length!=0){
-  for(let i = 0; i<textWordBlankHidden.length-tempWord.length; i++){
-    tempWord+= ' _ ';
-   }
-  }
 
-}
 
-  if(tempWord.length>=textWordBlankHidden.length){
-    tempWord=tempWord.substring(0,textWordBlankHidden.length);
-  }
-
-  
-  
 }
 
 
@@ -71,20 +54,18 @@ function draw() {
 
 
   text(displayhealth(), tempHeight, tempWidth);
+  text(point, 0.75*tempHeight, 0.75*tempWidth);
+  
+  if(point==10){
+    wave++;
+    text("WAVE"+ wave, 0.85*tempHeight, 0.85*tempWidth);
+    numStorm++;
+    point = 0;
+  }
 
 for(let i = 0; i<numStorm;i++){
   storm[i].check();
    storm[i].show();
-  
-  }
- 
-
-  if(health<=0){
-   deathScreen();
-  }
-  
-  
-  for(let i = 0; i<numStorm;i++){
     storm[i].move();
    
   }
@@ -92,7 +73,7 @@ for(let i = 0; i<numStorm;i++){
 
 function deathScreen(){
   for(let i = 0; i<numStorm;i++){
-    storm[i].stopVarable=true;
+    storm[i].change();
    }
   square(displayHeight*0.5, displayWidth*0.5, 40);
 
@@ -104,24 +85,30 @@ let holdText = random(arrayWord);
 let stopVarable=false;
  
   this.x= random(0,displayWidth);
-  this.y=random(0,4);
+  this.y=random(-7,0);
+
+this.change = function(){
+  stopVarable=true;
+}
 
   this.check = function(){
   if(tempWord==(holdText)){
+    tempWord='';
     stopVarable= true;
     point+=1;
     holdText = random(arrayWord);
     this.x= random(0,displayWidth);
     this.y=random(-7,0);
-      stopVarable=false;
-      
+
+  
+    stopVarable= false;
   }
 
  
 }
   
   this.show = function(){
-  if(stopVarable==false){
+  if(stopVarable!=true){
     noStroke();
     circle(this.x,this.y,10,20);
     text(holdText,this.x, this.y);
@@ -137,9 +124,12 @@ let stopVarable=false;
     if(this.y >= displayHeight){
       this.grav = 0;
       health = health-1;
+      if(health<=0){
+        deathScreen();
+       }
       this.x = random(0,displayWidth);
       //explosion particles
-      this.y =0;
+      this.y =random(-7,0);
     }
   }
 
