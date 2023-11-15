@@ -4,6 +4,7 @@ let storm = ['first','second','third','fourth','fith','final'];
 let numOpponents = 1
 let MaxStorm = 5;
 
+
 let tempWord = ''
 let point = 0
 let health = 3
@@ -14,14 +15,22 @@ let shakeY = 0
 
 
 
+
 function preload() {
   mety = loadImage('Untitled_Artwork.png')
   typebar = loadImage('Untitled_Artwork(1).png')
   circleHub = loadImage ('Untitled_Artwork(2).png')
   backingCircle = loadImage('gussi.png')
+
+soundFormats('mp3');
+ hello = loadSound('cinematic-boom-171285.mp3');
+
 }
 
 function setup() {
+  hello.setVolume(0.1);
+  hello.play();
+
   createCanvas(displayWidth, displayHeight);
   for(let i = 0; i<MaxStorm;i++){
    storm[i] = new drawMet()
@@ -33,14 +42,13 @@ function setup() {
 }
 
 function draw() {
-
-
+ 
   background(100);
 
   
   
   
-  image(typebar,displayWidth*0.5,displayHeight*0.75,displayWidth*1,displayHeight*0.85*0.9 )
+  image(typebar,displayWidth*0.5,displayHeight*0.95,displayWidth*1,displayHeight*0.95 )
   image(backingCircle, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
   image(circleHub, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
 
@@ -114,7 +122,7 @@ let holdText = random(arrayWord);
 let stopVarable=false;
 //let checkLower = false;
  
-  this.x= random(0,displayWidth-100);
+  this.x= random(displayWidth*0.1, displayWidth*0.8);
   this.y=random(-7,0);
 
 this.change = function(){
@@ -131,7 +139,7 @@ this.change = function(){
     stopVarable= true;
     point+=1;
     holdText = random(arrayWord);
-    this.x= random(0,displayWidth-100);
+    this.x= random(displayWidth*0.1, displayWidth*0.8);
     this.y=random(-7,0);
 
   
@@ -162,14 +170,14 @@ this.change = function(){
   if(stopVarable==false){
   this.y=(this.y+this.speed)*this.grav;
   }
-    if(this.y >= displayHeight){
+    if(this.y >= displayHeight*0.85){
       this.grav = 0;
       health = health-1;
       if(health<=0){
         deathScreen();
        }
       this.x = random(0,displayWidth);
-      
+      hello.play();
       //explosion particles
       this.y =random(-7,0);
     }
