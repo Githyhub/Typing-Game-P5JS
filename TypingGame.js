@@ -12,15 +12,19 @@ let wave = 1
 let pause = false
 let shakeX = 0
 let shakeY = 0
-
-
+let hurt = false;
+let scoredpnt = false;
 
 
 function preload() {
+  bobScore = loadImage('IMG_1063.PNG')
+  bobHurt = loadImage('IMG_1064.PNG')
+  bobNormal = loadImage('IMG_1062.PNG')
   mety = loadImage('Untitled_Artwork.png')
   typebar = loadImage('Untitled_Artwork(1).png')
   circleHub = loadImage ('Untitled_Artwork(2).png')
   backingCircle = loadImage('gussi.png')
+
 
 soundFormats('mp3');
  hello = loadSound('cinematic-boom-171285.mp3');
@@ -28,6 +32,7 @@ soundFormats('mp3');
 }
 
 function setup() {
+  frameRate = 60;
   hello.setVolume(0.1);
   hello.play();
 
@@ -40,6 +45,27 @@ function setup() {
    
   
 }
+function bobState(){
+  if(hurt){
+    image(bobHurt, displayWidth*0.07,displayHeight*0.85,displayWidth*0.10,displayHeight*0.25 )
+    tint(255, 0, 0)
+    if(frameCount%30==0){
+    tint(255,255,255)
+    hurt = false;
+    }
+  }
+  else if(scoredpnt){
+    image(bobScore, displayWidth*0.07,displayHeight*0.85,displayWidth*0.10,displayHeight*0.25 )
+    tint(0, 200, 0)
+    if(frameCount%15==0){
+    tint(255,255,255)
+    scoredpnt = false;
+    }
+  }
+  else{
+  image(bobNormal, displayWidth*0.07,displayHeight*0.85,displayWidth*0.10,displayHeight*0.25 )
+  }
+}
 
 function draw() {
  
@@ -47,9 +73,10 @@ function draw() {
 
   
   
-  
+ 
   image(typebar,displayWidth*0.5,displayHeight*0.95,displayWidth*1,displayHeight*0.95 )
   image(backingCircle, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
+  bobState()
   image(circleHub, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
 
   textAlign(CENTER)
@@ -132,7 +159,7 @@ this.change = function(){
 
   this.check = function(){
   if(tempWord==holdText){
-
+    scoredpnt = true;
   
     tempWord='';
    
@@ -171,6 +198,7 @@ this.change = function(){
   this.y=(this.y+this.speed)*this.grav;
   }
     if(this.y >= displayHeight*0.85){
+      hurt= true;
       this.grav = 0;
       health = health-1;
       if(health<=0){
@@ -181,6 +209,7 @@ this.change = function(){
       //explosion particles
       this.y =random(-7,0);
     }
+    
   }
 
 }
