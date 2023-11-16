@@ -192,7 +192,8 @@ this.change = function(){
   
 
  // translate(this.x,this.y)
-  text(holdText,this.x, this.y);
+ fill('white')
+  text(holdText,this.x, this.y-20);
   //rotate (rotateVar);
     image(mety,this.x, this.y,20,20);
     
@@ -229,7 +230,7 @@ this.change = function(){
 
 function displayhealth(){
   let he =displayWidth*0.05;
-  let tempHel = displayWidth*0.07
+  let tempHel = displayWidth*0.23
   
    
   if(health>=3){
