@@ -24,6 +24,7 @@ function preload() {
   typebar = loadImage('Untitled_Artwork(1).png')
   circleHub = loadImage ('Untitled_Artwork(2).png')
   backingCircle = loadImage('gussi.png')
+  backgroundImage= loadImage('Atar.png')
 
 
 soundFormats('mp3');
@@ -32,9 +33,10 @@ soundFormats('mp3');
 }
 
 function setup() {
-  frameRate = 60;
+  background(0)
+  frameRate = 60
   hello.setVolume(0.1);
-  hello.play();
+  hello.play()
 
   createCanvas(displayWidth, displayHeight);
   for(let i = 0; i<MaxStorm;i++){
@@ -45,6 +47,9 @@ function setup() {
    
   
 }
+
+function scroll()
+
 function bobState(){
   if(hurt){
     image(bobHurt, displayWidth*0.07,displayHeight*0.85,displayWidth*0.10,displayHeight*0.25 )
