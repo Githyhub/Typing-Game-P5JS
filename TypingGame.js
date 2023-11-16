@@ -25,6 +25,8 @@ function preload() {
   circleHub = loadImage ('Untitled_Artwork(2).png')
   backingCircle = loadImage('gussi.png')
   backgroundImage= loadImage('Atar.png')
+  heartImage = loadImage('Heart.png')
+  
 
 
 soundFormats('mp3');
@@ -48,13 +50,15 @@ function setup() {
   
 }
 
-function scroll()
+function scroll(){
+  image(backgroundImage, 0, 0,displayWidth, displayHeight)
+}
 
 function bobState(){
   if(hurt){
     image(bobHurt, displayWidth*0.07,displayHeight*0.85,displayWidth*0.10,displayHeight*0.25 )
     tint(255, 0, 0)
-    if(frameCount%30==0){
+    if(frameCount%15==0){
     tint(255,255,255)
     hurt = false;
     }
@@ -74,19 +78,20 @@ function bobState(){
 
 function draw() {
  
-  background(100);
-
+  background(0);
+  scroll()
   
-  
+ 
  
   image(typebar,displayWidth*0.5,displayHeight*0.95,displayWidth*1,displayHeight*0.95 )
   image(backingCircle, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
   bobState()
   image(circleHub, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
+  displayhealth()
 
   textAlign(CENTER)
-textSize(100)
-  text(tempWord, displayWidth*0.5, displayHeight*.9);
+textSize(90)
+  text(tempWord, displayWidth*0.5,displayHeight);
   textSize(25)
   
   
@@ -95,7 +100,7 @@ textSize(100)
   let tempWidth = displayWidth*0.1;
 
 
-  text(displayhealth(), tempHeight, tempWidth);
+ 
   text(point, 0.75*tempHeight, 0.75*tempWidth);
   
   if(tempWord=='cheat'){
@@ -223,13 +228,17 @@ this.change = function(){
 
 
 function displayhealth(){
+  let he =displayWidth*0.05;
+  let tempHel = displayWidth*0.07
   
-  let stringHearttemp = '';
-
-  for(let u = 0; u<health;u++){
-    stringHearttemp+= ' heart ';
+   
+  if(health>=3){
+image(heartImage, tempHel,displayHeight*0.8,displayWidth*0.10,displayHeight*0.25 )
   }
-
- return stringHearttemp;
-  
+  if (health>=2){
+ image(heartImage, tempHel+he,displayHeight*0.8,displayWidth*0.10,displayHeight*0.25 )
+  }
+ if (health >=1){
+ image(heartImage, tempHel+he+he,displayHeight*0.8,displayWidth*0.10,displayHeight*0.25 )
+ }
 }
