@@ -1,8 +1,8 @@
 
-let arrayWord = ['hello','mother','donde','sl'];
-let storm = ['first','second','third','fourth','fith','final'];
+let arrayWord = ['world', 'father', 'esta', 'array', 'extension', 'example', 'words', 'generic']
+let storm = ['first','second','third','fourth','fith','final']
 let numOpponents = 1
-let MaxStorm = 5;
+let MaxStorm = 5
 
 
 let tempWord = ''
@@ -12,8 +12,11 @@ let wave = 1
 let pause = false
 let shakeX = 0
 let shakeY = 0
-let hurt = false;
-let scoredpnt = false;
+let hurt = false
+let scoredpnt = false
+let showDeath = false
+let showWave = false
+let displaceWave = 1000
 
 
 function preload() {
@@ -26,6 +29,8 @@ function preload() {
   backingCircle = loadImage('gussi.png')
   backgroundImage= loadImage('Atar.png')
   heartImage = loadImage('Heart.png')
+  displayScreen = loadImage('screens.png')
+  gameOver = loadImage('gavemover.png')
   
 
 
@@ -35,8 +40,9 @@ soundFormats('mp3');
 }
 
 function setup() {
+  
   background(0)
-  frameRate = 60
+  frameRate = 120
   hello.setVolume(0.1);
   hello.play()
 
@@ -81,9 +87,10 @@ function draw() {
   background(0);
   scroll()
   
+  
+  image(displayScreen,displayWidth*0.085,displayHeight*0.10,displayWidth*0.15,displayHeight*0.25 )
  
- 
-  image(typebar,displayWidth*0.5,displayHeight*0.95,displayWidth*1,displayHeight*0.95 )
+  image(typebar,displayWidth*0.5,displayHeight*0.90,displayWidth*1,displayHeight*0.95 )
   image(backingCircle, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
   bobState()
   image(circleHub, displayWidth*0.1,displayHeight*0.85,displayWidth*0.25,displayHeight*0.40 )
@@ -100,23 +107,49 @@ textSize(90)
   let tempWidth = displayWidth*0.1;
 
 
- 
-  text(point, 0.75*tempHeight, 0.75*tempWidth);
+  text('Wave: ' + wave, 0.75*tempHeight, 0.55*tempWidth);
+  text('Score: ' + point, 0.75*tempHeight, 0.75*tempWidth);
+
+if(showWave==true){
+  text("Wave: "+ wave, 0.85*tempHeight, (0.85*tempWidth+displaceWave));
+
+  displaceWave=0
+}
+else{
+  
+  displaceWave =  1000
+}
+
+if(showWave){
+  displaceWave=0
+  text("Wave: "+ wave, 0.85*tempHeight, (0.85*tempWidth+displaceWave));
+
+  if(frameCount%55==0){
+    displaceWave=1000
+  showWave =false;
+  }
+}
+
+   
+  
   
   if(tempWord=='cheat'){
     tempWord='';
     point+=10;
   }
  
+  if(showDeath){
+    image(gameOver, displayWidth*0.5,displayHeight*0.5,displayWidth*0.25,displayHeight*0.25 )
+
+
+  }
 
   if(point>=10){
 
     pause= true;
 
     wave++;
-    
-    text("WAVE"+ wave, 0.85*tempHeight, 0.85*tempWidth);
-    
+    showWave=true;
 
     numOpponents++;
     point = 0;
@@ -136,12 +169,12 @@ function deathScreen(){
   for(let i = 0; i<numOpponents;i++){
     storm[i].change();
    }
-  square(displayHeight*0.5, displayWidth*0.5, 40);
+  showDeath = true;
 
 }
 
 function keyPressed(){
-
+ 
   if(key.length==1){
 
     tempWord=tempWord+key;
