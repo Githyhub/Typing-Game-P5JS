@@ -108,7 +108,9 @@ textSize(90)
 
 
   text('Wave: ' + wave, 0.75*tempHeight, 0.55*tempWidth);
-  text('Score: ' + point, 0.75*tempHeight, 0.75*tempWidth);
+  textSize(20)
+  text('Meteors Left: ' + (10 - point), 0.75*tempHeight, 0.75*tempWidth);
+  textSize(25)
 
 if(showWave==true){
   text("Wave: "+ wave, 0.85*tempHeight, (0.85*tempWidth+displaceWave));
