@@ -123,6 +123,23 @@ function draw() {
  }
   }
 
+  if(showDeath==true){
+    tempWord =''
+  textSize(20)
+  pauseScreen = true
+  image(gameOver, displayWidth*0.5,displayHeight*0.35,displayWidth*0.8,displayHeight*1.6 )
+  image(displayScreen, displayWidth*0.85,displayHeight*0.25,displayWidth*0.2,displayHeight*.6 )
+  text('Destoryed \n'+(wave-1)*10 + point+' meteors\n' ,displayWidth*0.85,displayHeight*0.2)
+  text('Survived \n' + parseInt(tik/60) + ' seconds', displayWidth*0.85,displayHeight*0.28 )
+  highScore = parseInt(tik*(wave-1)*100 + point*10)
+  text('High Score:' +highScore, displayWidth*0.85,displayHeight*0.38 )
+  text('click to go home', displayWidth*0.5,displayHeight*0.68 )
+ if(mouseIsPressed === true){
+  text('SLAY', displayWidth*0.5,displayHeight*0.35,displayWidth*0.8,displayHeight*1.6 )
+  //ADD HOME SCREEN LINK
+ }
+  }
+
 
   if(pauseScreen==true){
     pause=true
